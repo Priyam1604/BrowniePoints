@@ -14,6 +14,12 @@ import ManageProfile from './src/BottomTab/ManageProfile';
 import AddGroup from './src/BottomTab/AddGroup';
 import ManageGroup from './src/BottomTab/ManageGroup';
 import AddMember from './src/BottomTab/AddMember';
+import ManageMember from './src/BottomTab/ManageMember';
+import Rewards from './src/BottomTab/Rewards';
+import RewardOptions from './src/BottomTab/RewardOptions';
+import AddReward from './src/BottomTab/AddReward';
+import Tasks from './src/BottomTab/Tasks';
+import AddTask from './src/BottomTab/AddTask';
 import { useState } from 'react';
 
 const Stack = createStackNavigator();
@@ -30,7 +36,12 @@ function StackNavigator() {
       <Stack.Screen name='AddGroup' component={AddGroup}/>
       <Stack.Screen name='ManageGroup' component={ManageGroup}/>
       <Stack.Screen name='AddMember' component={AddMember}/>
-
+      <Stack.Screen name='ManageMember' component={ManageMember}/>
+      <Stack.Screen name='Rewards' component={Rewards}/>
+      <Stack.Screen name='RewardOptions' component={RewardOptions}/>
+      <Stack.Screen name='AddReward' component={AddReward}/>
+      <Stack.Screen name='Tasks' component={Tasks}/>
+      <Stack.Screen name='AddTask' component={AddTask}/>
     </Stack.Navigator>
   );
 }

@@ -29,13 +29,13 @@ const Detail = () => {
         </TouchableOpacity>
         <View style={styles.socialButtons}>
           <TouchableOpacity style={styles.socialButton}>
-            <Image source={require('/Users/priyam/Brownie_Points/assets/google.png')} style={styles.socialLogo} />
+            <Image source={require('../../assets/google.png')} style={styles.socialLogo} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.socialButton}>
-            <Image source={require('/Users/priyam/Brownie_Points/assets/facebook.png')} style={styles.socialLogo} />
+            <Image source={require('../../assets/facebook.png')} style={styles.socialLogo} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.socialButton}>
-            <Image source={require('/Users/priyam/Brownie_Points/assets/twitter.png')} style={styles.socialLogo} />
+            <Image source={require('../../assets/twitter.png')} style={styles.socialLogo} />
           </TouchableOpacity>
         </View>
         <Text style={styles.footerText}>© 2023 Brownie Points. All rights reserved.</Text>

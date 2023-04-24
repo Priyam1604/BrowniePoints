@@ -14,12 +14,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
 
-
-
 const groups = [
-  { id: 1, name: 'Group 1' },
-  { id: 2, name: 'Group 2' },
-  { id: 3, name: 'Group 3' },
+  { id: 1, name: 'Group 1', color: '#f5a623' },
+  { id: 2, name: 'Group 2', color: '#00bfa5' },
+  { id: 3, name: 'Group 3', color: '#1e88e5' },
 ];
 
 const ManageGroup = () => {
@@ -28,30 +26,46 @@ const ManageGroup = () => {
   const [activeGroup, setActiveGroup] = useState(null);
 
   const handleOptionPress = (option) => {
-    if (option === 'Add Member in group') {
-      navigation.navigate('AddMember');
-    } else {
-      Alert.alert('Option Selected', option);
+    switch (option) {
+      case 'Add Member in group':
+        navigation.navigate('AddMember');
+        break;
+      case 'Delete Member in group':
+        Alert.alert('Option Selected', option);
+        break;
+      case 'Manage Members in group':
+        navigation.navigate('ManageMember');
+        break;
+      case 'Edit Group':
+        Alert.alert('Option Selected', option);
+        break;
+      case 'Delete Group':
+        Alert.alert('Option Selected', option);
+        break;
+      case 'Rename Group':
+        Alert.alert('Option Selected', option);
+        break;
+      default:
+        break;
     }
     setMenuOpen(false);
   };
+  
 
   const renderGroup = ({ item }) => (
-    <View style={styles.groupContainer}>
+    <TouchableOpacity 
+      style={[styles.groupContainer, {backgroundColor: item.color}]}
+      onPress={() => {
+        setActiveGroup(item.id);
+        setMenuOpen(!menuOpen);
+      }}
+      >
       <Image
         style={styles.groupImage}
         source={{ uri: 'https://via.placeholder.com/50' }}
       />
-      <Text style={styles.groupText}>{item.name}</Text>
-      <TouchableOpacity
-        onPress={() => {
-          setActiveGroup(item.id);
-          setMenuOpen(!menuOpen);
-        }}
-        style={styles.menuIcon}
-      >
-        <MaterialIcons name="more-vert" size={24} color="black" />
-      </TouchableOpacity>
+      <Text style={[styles.groupText, {color: 'white'}]}>{item.name}</Text>
+      <MaterialIcons name="more-vert" size={24} color="white" style={styles.menuIcon} />
       {menuOpen && activeGroup === item.id && (
         <Modal
           animationType="fade"
@@ -81,7 +95,7 @@ const ManageGroup = () => {
           </TouchableWithoutFeedback>
         </Modal>
       )}
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -101,7 +115,7 @@ export default ManageGroup;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#f5f5f5',
     paddingHorizontal: 20,
     paddingTop: 60,
   },
@@ -114,11 +128,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#fff',
     borderRadius: 10,
     paddingVertical: 15,
     paddingHorizontal: 20,
     marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
   },
   groupImage: {
     width: 50,
@@ -129,6 +148,7 @@ const styles = StyleSheet.create({
   groupText: {
     fontSize: 18,
     flex: 1,
+    fontWeight: 'bold',
   },
   menuIcon: {
     padding: 5,

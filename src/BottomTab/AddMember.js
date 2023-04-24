@@ -5,18 +5,14 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  
   Platform,
-  Button,
   Alert,
+  ScrollView,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
-
-
-// import {Picker} from '@react-native-picker/picker';
-
+import { Button } from 'react-native-elements';
 
 const AddMember = () => {
   const [memberName, setMemberName] = useState('');
@@ -25,6 +21,12 @@ const AddMember = () => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [tempPin, setTempPin] = useState('');
+  const [memberId, setMemberId] = useState('');
+
+  const generateMemberId = () => {
+    const id = 'M' + Math.floor(100000 + Math.random() * 900000);
+    setMemberId(id);
+  };
 
   const onDateChange = (event, selectedDate) => {
     setShowDatePicker(Platform.OS === 'ios');
@@ -40,7 +42,9 @@ const AddMember = () => {
     if (!memberName || !memberType || !gender) {
       Alert.alert('Error', 'Please fill in all required fields');
     } else {
-      const memberId = 'M' + Math.floor(100000 + Math.random() * 900000);
+      if (!memberId) {
+        generateMemberId();
+      }
       const newMember = {
         memberId,
         memberName,
@@ -55,14 +59,23 @@ const AddMember = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.header}>Add Member</Text>
+      <Text style={styles.label}>Member ID</Text>
+      <TextInput
+        style={styles.input}
+        value={memberId}
+        editable={false}
+        placeholder="Member ID will be auto-generated"
+      />
+      <Text style={styles.label}>Member Name</Text>
       <TextInput
         style={styles.input}
         placeholder="Member Name"
         onChangeText={setMemberName}
         value={memberName}
       />
+      <Text style={styles.label}>Member Type</Text>
       <Picker
         selectedValue={memberType}
         style={styles.picker}
@@ -73,17 +86,19 @@ const AddMember = () => {
         <Picker.Item label="Redeemer" value="Redeemer" />
         <Picker.Item label="Earner/Recipient" value="Earner/Recipient" />
       </Picker>
+      <Text style={styles.label}>Gender</Text>
       <Picker
         selectedValue={gender}
         style={styles.picker}
         onValueChange={(itemValue) => setGender(itemValue)}
       >
         <Picker.Item label="Select Gender" value="" />
-        <Picker.Item label="Male" value="Male" />
-        <Picker.Item label="Female" value="Female" />
+        <Picker.Item label="He/Him" value="He/Him" />
+        <Picker.Item label="She/Her" value="She/Her" />
       </Picker>
+      <Text style={styles.label}>Date of Birth</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.datePicker}>
-        <Text style={styles.datePickerText}>
+      <Text style={styles.datePickerText}>
           {`Date of Birth: ${dateOfBirth.toLocaleDateString()}`}
         </Text>
         <MaterialIcons name="date-range" size={24} color="black" />
@@ -96,69 +111,76 @@ const AddMember = () => {
           onChange={onDateChange}
         />
       )}
+      <Text style={styles.label}>Temporary PIN</Text>
       <TouchableOpacity onPress={generateTempPin} style={styles.tempPinButton}>
         <Text style={styles.tempPinButtonText}>
           {tempPin ? `Temporary PIN: ${tempPin}` : 'Generate Temporary PIN'}
         </Text>
       </TouchableOpacity>
       <Button title="Add Member" onPress={submitMember} />
-    </View>
-  );}
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 20,
-      backgroundColor: '#F5F5F5',
-    },
-    header: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 20,
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: '#999',
-      borderRadius: 5,
-      padding: 10,
-      marginBottom: 15,
-      backgroundColor: '#FFF',
-    },
-    picker: {
-      borderWidth: 1,
-      borderColor: '#999',
-      borderRadius: 5,
-      marginBottom: 15,
-      backgroundColor: '#FFF',
-    },
-    datePicker: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderWidth: 1,
-      borderColor: '#999',
-      borderRadius: 5,
-      padding: 10,
-      marginBottom: 15,
-      backgroundColor: '#FFF',
-    },
-    datePickerText: {
-      fontSize: 16,
-    },
-    tempPinButton: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderWidth: 1,
-      borderColor: '#999',
-      borderRadius: 5,
-      padding: 10,
-      marginBottom: 15,
-      backgroundColor: '#FFF',
-    },
-    tempPinButtonText: {
-      fontSize: 16,
-    },
-  });
+    </ScrollView>
+  );
+};
 
-  export default AddMember;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#F0F0F0',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#FFF',
+  },
+  picker: {
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 5,
+    marginBottom: 15,
+    backgroundColor: '#FFF',
+  },
+  datePicker: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#FFF',
+  },
+  datePickerText: {
+    fontSize: 16,
+  },
+  tempPinButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#FFF',
+  },
+  tempPinButtonText: {
+    fontSize: 16,
+  },
+});
+
+export default AddMember;
 

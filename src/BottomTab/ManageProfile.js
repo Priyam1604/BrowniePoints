@@ -24,16 +24,19 @@ const ManageProfile = () => {
       </View>
       </TouchableOpacity>
 
-
+      <TouchableOpacity onPress={() => navigation.navigate('Rewards')}>
       <View style={[styles.optionContainer, styles.rewardsContainer]}>
         <Ionicons name="trophy-outline" size={40} color="#FFF" />
         <Text style={styles.optionText}>Rewards</Text>
       </View>
+      </TouchableOpacity>
 
+      <TouchableOpacity onPress={() => navigation.navigate('Tasks')}>
       <View style={[styles.optionContainer, styles.manageTasksContainer]}>
         <MaterialIcons name="playlist-add-check" size={40} color="#FFF" />
         <Text style={styles.optionText}>Manage Tasks</Text>
       </View>
+      </TouchableOpacity>
 
       <View style={[styles.optionContainer, styles.settingsContainer]}>
         <Ionicons name="settings-outline" size={40} color="#FFF" />

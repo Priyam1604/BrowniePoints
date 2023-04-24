@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Image,
+} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import * as ImagePicker from 'expo-image-picker';
 
@@ -8,6 +17,7 @@ const AddGroup = () => {
   const [groupName, setGroupName] = useState('');
   const [role, setRole] = useState('');
   const [image, setImage] = useState(null);
+  const [maxMembers, setMaxMembers] = useState('');
 
   const createGroup = () => {
     Alert.alert(
@@ -45,9 +55,24 @@ const AddGroup = () => {
         placeholder="Group Name"
       />
 
+      <TextInput
+        style={styles.input}
+        onChangeText={setMaxMembers}
+        value={maxMembers}
+        placeholder="Max Members (1-10)"
+        keyboardType="number-pad"
+        maxLength={2}
+      />
+
       {/* Add your picker implementation here */}
 
-      {image && <Image source={{ uri: image }} style={styles.avatar} />}
+      {image ? (
+        <Image source={{ uri: image }} style={styles.avatar} />
+      ) : (
+        <View style={styles.avatarPlaceholder}>
+          <MaterialIcons name="add-a-photo" size={48} color="#F76B8A" />
+        </View>
+      )}
 
       <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
         <Text style={styles.buttonText}>Upload Photo</Text>
@@ -55,10 +80,6 @@ const AddGroup = () => {
 
       <TouchableOpacity style={styles.createButton} onPress={createGroup}>
         <Text style={styles.buttonText}>Create Group</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.cancelButton}>
-        <Text style={styles.buttonText}>Cancel</Text>
       </TouchableOpacity>
     </View>
   );
@@ -111,12 +132,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 15,
   },
-  cancelButton: {
-    backgroundColor: '#3DDC97',
-    borderRadius: 10,
-    paddingVertical: 15,
-    alignItems: 'center',
-  },
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -128,5 +143,15 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignSelf: 'center',
     marginBottom: 15,
+  },
+  avatarPlaceholder: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    alignSelf: 'center',
+    marginBottom: 15,
+    backgroundColor: '#EEE',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

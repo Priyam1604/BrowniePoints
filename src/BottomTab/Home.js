@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
-        <Image source={require('/Users/priyam/Brownie_Points/src/BottomTab/1.png')} style={styles.logo} />
+        <Image source={require('./1.png')} style={styles.logo} />
         <Animated.Text style={[styles.title, { opacity: fadeAnim }]}>Welcome to Brownie Points</Animated.Text>
         <Animated.Text style={[styles.subtitle, { opacity: fadeAnim }, {marginTop: 30}]}>Earn points for doing good deeds and redeem them for rewards!</Animated.Text>
       </View>
