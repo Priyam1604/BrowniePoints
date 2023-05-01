@@ -8,29 +8,30 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import { useNavigation } from '@react-navigation/native';
 const memberData = [
   {
     id: '1',
     name: 'John Doe',
     type: 'Administrator',
-    image: require('./profile-pic (1).png'),
+    image: require('./p1.png'),
   },
   {
     id: '2',
     name: 'Jane Doe',
     type: 'Redeemer',
-    image: require('./profile-pic (2).png'),
+    image: require('./p2.png'),
   },
   {
     id: '3',
     name: 'Bob Smith',
     type: 'Earner/Recipient',
-    image: require('./profile-pic (2).png'),
+    image: require('./p3.png'),
   },
 ];
 
 const ManageMember = () => {
+  const navigation = useNavigation();
   const [selectedMember, setSelectedMember] = useState(null);
 
   const handleMemberOption = (memberId) => {
@@ -57,7 +58,7 @@ const ManageMember = () => {
             <Ionicons name="card-outline" size={24} color="#4CAF50" />
             <Text style={styles.memberOptionText}>Add Reward</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.memberOption}>
+          <TouchableOpacity style={styles.memberOption} onPress={() => navigation.navigate('GenerateQRCode')}>
             <Ionicons name="qr-code-outline" size={24} color="#FFA000" />
             <Text style={styles.memberOptionText}>Generate QR Code</Text>
           </TouchableOpacity>

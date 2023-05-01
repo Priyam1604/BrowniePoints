@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Detail = () => {
   const navigation = useNavigation();
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleLoginPress = () => {
     navigation.navigate('Login');
@@ -13,33 +14,45 @@ const Detail = () => {
     navigation.navigate('Signup');
   };
 
+  const toggleSwitch = () => {
+    setDarkMode(previousState => !previousState);
+  };
+
+  const containerStyle = darkMode ? styles.darkContainer : styles.container;
+  const textStyle = darkMode ? styles.darkText : styles.lightText;
+
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        {/* <View style={styles.logoContainer}>
-          <Image source={require('/Users/priyam/Brownie_Points/assets/logo.png')} style={styles.logo} />
-        </View> */}
-        <Text style={[styles.title, { fontSize: 30 }, { marginBottom: 30 }]}>Brownie Points</Text>
-        <Text style={styles.subtitle}>Turn good behaviour into great rewards!</Text>
-        <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
+    <View style={[styles.container, containerStyle]}>
+      <View style={styles.header}>
+        <Text style={[styles.title, textStyle]}>Brownie Points</Text>
+        <Switch
+          trackColor={{ false: '#767577', true: '#81b0ff' }}
+          thumbColor={darkMode ? '#f5dd4b' : '#f4f3f4'}
+          onValueChange={toggleSwitch}
+          value={darkMode}
+        />
+      </View>
+      <Text style={[styles.subtitle, textStyle]}>Turn good behaviour into great rewards!</Text>
+      <View style={styles.buttons}>
+        <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={handleLoginPress}>
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleSignupPress}>
+        <TouchableOpacity style={[styles.button, styles.signupButton]} onPress={handleSignupPress}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
-        <View style={styles.socialButtons}>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={require('../../assets/google.png')} style={styles.socialLogo} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={require('../../assets/facebook.png')} style={styles.socialLogo} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={require('../../assets/twitter.png')} style={styles.socialLogo} />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.footerText}>© 2023 Brownie Points. All rights reserved.</Text>
       </View>
+      <View style={styles.socialButtons}>
+        <TouchableOpacity style={styles.socialButton}>
+          <Image source={require('../../assets/google.png')} style={styles.socialLogo} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.socialButton}>
+          <Image source={require('../../assets/facebook.png')} style={styles.socialLogo} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.socialButton}>
+          <Image source={require('../../assets/twitter.png')} style={styles.socialLogo} />
+        </TouchableOpacity>
+      </View>
+      <Text style={[styles.footerText, textStyle]}>© 2023 Brownie Points. All rights reserved.</Text>
     </View>
   );
 };
@@ -49,36 +62,29 @@ export default Detail;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 40,
+  darkContainer: {
+    backgroundColor: '#333',
+  },
+  lightText: {
+    color: '#000',
+  },
+  darkText: {
+    color: '#fff',
+  },
+  header: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
-    elevation: 5,
-  },
-  logoContainer: {
-    backgroundColor: '#F76B8A',
-    borderRadius: 50,
-    padding: 10,
-  },
-  logo: {
-    width: 80,
-    height: 80,
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 30,
   },
   title: {
+    fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
   },
   subtitle: {
     fontSize: 18,
@@ -86,23 +92,34 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '60%',
+    marginBottom: 30,
+  },
   button: {
-    backgroundColor: '#F76B8A',
     padding: 12,
     borderRadius: 30,
-    width: '60%',
+    width: '45%',
     alignItems: 'center',
-    marginBottom: 20,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
   },
+  loginButton: {
+    backgroundColor: '#F76B8A',
+  },
+  signupButton: {
+    backgroundColor: '#4b9ac9',
+  },
   socialButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '60%',
+    marginBottom: 30,
   },
   socialButton: {
     padding: 12,
@@ -118,31 +135,11 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  getStartedButton: {
-    backgroundColor: '#F76B8A',
-    marginTop: -25,
-  },
-  learnMoreContainer: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  learnMoreText: {
-    color: '#707070',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
   footerText: {
-    marginTop: 50,
     fontSize: 12,
-    color: '#444',
     textAlign: 'center',
     marginBottom: 50,
-    fontSize: 18
-  },
-  
-  learnMoreArrow: {
-    marginLeft: 5,
+    fontSize: 18,
   },
 });
+

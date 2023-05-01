@@ -78,6 +78,7 @@ const AddTask = () => {
       </TouchableOpacity>
       {showTimePicker && (
         <DateTimePicker
+        //  style={ {inputAndroid: {color: 'black'} ,height: 214, overflow: 'hidden'}}
           mode="time"
           value={dueTime}
           onChange={(event, selectedTime) => {

@@ -58,11 +58,11 @@ const Dashboard = () => {
       </ScrollView>
 
       <View style={styles.bottomNavigation}>
-        <TouchableOpacity style={styles.bottomNavigationIcon}>
+        <TouchableOpacity style={styles.bottomNavigationIcon} onPress={() => navigation.navigate('DBoard')}>
           <Ionicons name="md-home" size={27} color="#666" />
           
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomNavigationIcon}>
+        <TouchableOpacity style={styles.bottomNavigationIcon} onPress={() => navigation.navigate('DigitalWallet')}>
           <MaterialIcons name="account-balance-wallet" size={24} color="#666" />
           
         </TouchableOpacity>
@@ -74,7 +74,7 @@ const Dashboard = () => {
           <Ionicons name="trophy" size={27} color="#666" />
           
         </TouchableOpacity>
-        <TouchableOpacity style={styles.bottomNavigationIcon}>
+        <TouchableOpacity style={styles.bottomNavigationIcon} onPress={() => navigation.navigate('TaskList')}>
           <Ionicons name="md-checkbox-outline" size={27} color="#666" />
           
         </TouchableOpacity>
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     },
     scrollView: {
       paddingHorizontal: 20,
-      paddingVertical: 30,
+    paddingVertical: 30,
+    marginBottom: 70,
     },
     header: {
       fontSize: 24,

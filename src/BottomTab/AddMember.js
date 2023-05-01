@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,10 @@ const AddMember = () => {
   const [tempPin, setTempPin] = useState('');
   const [memberId, setMemberId] = useState('');
 
+  useEffect(() => {
+    generateMemberId();
+  }, []);
+
   const generateMemberId = () => {
     const id = 'M' + Math.floor(100000 + Math.random() * 900000);
     setMemberId(id);
@@ -42,9 +46,6 @@ const AddMember = () => {
     if (!memberName || !memberType || !gender) {
       Alert.alert('Error', 'Please fill in all required fields');
     } else {
-      if (!memberId) {
-        generateMemberId();
-      }
       const newMember = {
         memberId,
         memberName,
@@ -66,8 +67,9 @@ const AddMember = () => {
         style={styles.input}
         value={memberId}
         editable={false}
-        placeholder="Member ID will be auto-generated"
+        placeholder="Member ID is auto-generated"
       />
+      
       <Text style={styles.label}>Member Name</Text>
       <TextInput
         style={styles.input}
@@ -98,7 +100,7 @@ const AddMember = () => {
       </Picker>
       <Text style={styles.label}>Date of Birth</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.datePicker}>
-      <Text style={styles.datePickerText}>
+        <Text style={styles.datePickerText}>
           {`Date of Birth: ${dateOfBirth.toLocaleDateString()}`}
         </Text>
         <MaterialIcons name="date-range" size={24} color="black" />
@@ -117,7 +119,11 @@ const AddMember = () => {
           {tempPin ? `Temporary PIN: ${tempPin}` : 'Generate Temporary PIN'}
         </Text>
       </TouchableOpacity>
-      <Button title="Add Member" onPress={submitMember} />
+      <Button
+        title="Add Member"
+        onPress={submitMember}
+        buttonStyle={styles.submitButton}
+      />
     </ScrollView>
   );
 };
@@ -132,10 +138,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#4b9ac9',
   },
   label: {
     fontSize: 16,
     marginBottom: 5,
+    color: '#333',
   },
   input: {
     borderWidth: 1,
@@ -180,7 +188,9 @@ const styles = StyleSheet.create({
   tempPinButtonText: {
     fontSize: 16,
   },
+  submitButton: {
+    backgroundColor: '#4b9ac9',
+  },
 });
 
 export default AddMember;
-

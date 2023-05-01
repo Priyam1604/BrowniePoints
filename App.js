@@ -20,6 +20,10 @@ import RewardOptions from './src/BottomTab/RewardOptions';
 import AddReward from './src/BottomTab/AddReward';
 import Tasks from './src/BottomTab/Tasks';
 import AddTask from './src/BottomTab/AddTask';
+import DBoard from './src/BottomTab/DBoard';
+import DigitalWallet from './src/BottomTab/DigitalWallet';
+import GenerateQRCode from './src/BottomTab/GenerateQRCode';
+import TaskList from './src/BottomTab/TaskList';
 import { useState } from 'react';
 
 const Stack = createStackNavigator();
@@ -42,6 +46,10 @@ function StackNavigator() {
       <Stack.Screen name='AddReward' component={AddReward}/>
       <Stack.Screen name='Tasks' component={Tasks}/>
       <Stack.Screen name='AddTask' component={AddTask}/>
+      <Stack.Screen name='DBoard' component={DBoard}/>
+      <Stack.Screen name='DigitalWallet' component={DigitalWallet}/>
+      <Stack.Screen name='GenerateQRCode' component={GenerateQRCode}/>
+      <Stack.Screen name='TaskList' component={TaskList}/>
     </Stack.Navigator>
   );
 }
