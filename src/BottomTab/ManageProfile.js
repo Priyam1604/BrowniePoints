@@ -24,12 +24,12 @@ const ManageProfile = () => {
       </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Rewards')}>
-      <View style={[styles.optionContainer, styles.rewardsContainer]}>
+      
+      {/* <View style={[styles.optionContainer, styles.rewardsContainer]}>
         <Ionicons name="trophy-outline" size={40} color="#FFF" />
         <Text style={styles.optionText}>Rewards</Text>
       </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity onPress={() => navigation.navigate('Tasks')}>
       <View style={[styles.optionContainer, styles.manageTasksContainer]}>
@@ -47,7 +47,7 @@ const ManageProfile = () => {
       <TouchableOpacity onPress={() => navigation.navigate('DBoard')}><Ionicons name="md-home-outline" size={27} color="#999" /></TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('DigitalWallet')}><MaterialIcons name="account-balance-wallet" size={27} color="#999" /></TouchableOpacity>
         <MaterialIcons name="person-outline" size={27} color="#F76B8A" />
-        <Ionicons name="trophy-outline" size={27} color="#999" />
+        <TouchableOpacity onPress={() => navigation.navigate('Rewards')}><Ionicons name="trophy-outline" size={27} color="#999" /></TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('TaskList')}><Ionicons name="md-checkbox-outline" size={27} color="#999" /></TouchableOpacity>
       </View>
     </View>
