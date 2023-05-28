@@ -31,6 +31,20 @@ const DBoard = () => {
         browniePoints: 235,
         goal: { name: 'Nike shoes', progress: 48 },
       },
+      {
+        id: '4',
+        name: 'John Smith',
+        photo: require('./p2.png'),
+        browniePoints: 88,
+        goal: { name: 'Football', progress: 79 },
+      },
+      {
+        id: '5',
+        name: 'John Doe',
+        photo: require('./p3.png'),
+        browniePoints: 100,
+        goal: { name: 'Football', progress: 80 },
+      },
     // Add more members here
   ];
 

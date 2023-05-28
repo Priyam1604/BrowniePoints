@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SelectMultiple from 'react-native-select-multiple';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const groups = ['Group 1', 'Group 2', 'Group 3'];
 const rewards = ['Reward 1', 'Reward 2', 'Reward 3'];
@@ -21,6 +22,8 @@ const AddTask = () => {
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [selectedGroups, setSelectedGroups] = useState([]);
   const [selectedRewards, setSelectedRewards] = useState([]);
+  const [browniePoints, setBrowniePoints] = useState(0);
+  const [isRecurring, setIsRecurring] = useState(false);
 
   const addTask = () => {
     Alert.alert(
@@ -30,7 +33,7 @@ const AddTask = () => {
         { text: 'Cancel', style: 'cancel' },
         { text: 'Yes', onPress: () => console.log('Task Added') },
       ],
-      { cancelable: false },
+      { cancelable: false }
     );
   };
 
@@ -40,6 +43,10 @@ const AddTask = () => {
     } else {
       setSelectedRewards(selectedItems);
     }
+  };
+
+  const toggleRecurring = () => {
+    setIsRecurring(!isRecurring);
   };
 
   return (
@@ -78,7 +85,6 @@ const AddTask = () => {
       </TouchableOpacity>
       {showTimePicker && (
         <DateTimePicker
-        //  style={ {inputAndroid: {color: 'black'} ,height: 214, overflow: 'hidden'}}
           mode="time"
           value={dueTime}
           onChange={(event, selectedTime) => {
@@ -103,6 +109,44 @@ const AddTask = () => {
         selectedItems={selectedRewards}
         onSelectionsChange={(selected) => onSelectionsChange('reward', selected)}
       />
+
+      <View style={styles.pointsContainer}>
+        <Text style={styles.pointsLabel}>Brownie Points:</Text>
+        <TouchableOpacity
+          style={styles.pointsButton}
+          onPress={() => setBrowniePoints(browniePoints + 1)}
+        >
+          <MaterialIcons name="add" size={24} color="#FFF" />
+        </TouchableOpacity>
+        <Text style={styles.points}>{browniePoints}</Text>
+        <TouchableOpacity
+          style={styles.pointsButton}
+          onPress={() => {
+            if (browniePoints > 0) {
+              setBrowniePoints(browniePoints - 1);
+            }
+          }}
+        >
+          <MaterialIcons name="remove" size={24} color="#FFF" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.recurringContainer}>
+        <Text style={styles.recurringLabel}>Recurring Task:</Text>
+        <TouchableOpacity
+          style={[
+            styles.recurringButton,
+            isRecurring && styles.recurringButtonActive,
+          ]}
+          onPress={toggleRecurring}
+        >
+          {isRecurring ? (
+            <MaterialIcons name="check-box" size={24} color="#FFF" />
+          ) : (
+            <MaterialIcons name="check-box-outline-blank" size={24} color="#FFF" />
+          )}
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity style={styles.addButton} onPress={addTask}>
         <Text style={styles.buttonText}>Add Task</Text>
@@ -162,7 +206,47 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFF',
   },
+  pointsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  pointsLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  pointsButton: {
+    backgroundColor: '#4CAF50',
+    borderRadius: 5,
+    padding: 5,
+  },
+  points: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingHorizontal: 10,
+  },
+  recurringContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  recurringLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  recurringButton: {
+    backgroundColor: '#4CAF50',
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  recurringButtonActive: {
+    backgroundColor: '#F76B8A',
+  },
 });
 
 export default AddTask;
-

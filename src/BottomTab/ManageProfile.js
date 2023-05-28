@@ -8,19 +8,19 @@ const ManageProfile = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Manage Profile</Text>
+      <Text style={styles.header}>Profile</Text>
 
-      <TouchableOpacity onPress={() => navigation.navigate('AddGroup')}>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('AddGroup')}>
         <View style={[styles.optionContainer, styles.addGroupContainer]}>
           <MaterialIcons name="group-add" size={40} color="#FFF" />
           <Text style={styles.optionText}>Add Group</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity onPress={() => navigation.navigate('ManageGroup')}>
       <View style={[styles.optionContainer, styles.manageGroupContainer]}>
         <MaterialIcons name="group" size={40} color="#FFF" />
-        <Text style={styles.optionText}>Manage Group</Text>
+        <Text style={styles.optionText}>Groups</Text>
       </View>
       </TouchableOpacity>
 
@@ -34,14 +34,16 @@ const ManageProfile = () => {
       <TouchableOpacity onPress={() => navigation.navigate('Tasks')}>
       <View style={[styles.optionContainer, styles.manageTasksContainer]}>
         <MaterialIcons name="playlist-add-check" size={40} color="#FFF" />
-        <Text style={styles.optionText}>Manage Tasks</Text>
+        <Text style={styles.optionText}>Tasks</Text>
       </View>
       </TouchableOpacity>
 
+      <TouchableOpacity onPress={() => navigation.navigate('SettingsPage')}>
       <View style={[styles.optionContainer, styles.settingsContainer]}>
         <Ionicons name="settings-outline" size={40} color="#FFF" />
         <Text style={styles.optionText}>Settings</Text>
       </View>
+      </TouchableOpacity>
 
       <View style={styles.bottomNavigation}>
       <TouchableOpacity onPress={() => navigation.navigate('DBoard')}><Ionicons name="md-home-outline" size={27} color="#999" /></TouchableOpacity>

@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import {Picker} from '@react-native-picker/picker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const groups = [
   { id: 1, name: 'Group 1', color: '#f5a623' },
@@ -50,21 +50,20 @@ const ManageGroup = () => {
     }
     setMenuOpen(false);
   };
-  
 
   const renderGroup = ({ item }) => (
-    <TouchableOpacity 
-      style={[styles.groupContainer, {backgroundColor: item.color}]}
+    <TouchableOpacity
+      style={[styles.groupContainer, { backgroundColor: item.color }]}
       onPress={() => {
         setActiveGroup(item.id);
         setMenuOpen(!menuOpen);
       }}
-      >
+    >
       <Image
         style={styles.groupImage}
         source={{ uri: 'https://via.placeholder.com/50' }}
       />
-      <Text style={[styles.groupText, {color: 'white'}]}>{item.name}</Text>
+      <Text style={[styles.groupText, { color: 'white' }]}>{item.name}</Text>
       <MaterialIcons name="more-vert" size={24} color="white" style={styles.menuIcon} />
       {menuOpen && activeGroup === item.id && (
         <Modal
@@ -106,6 +105,9 @@ const ManageGroup = () => {
         renderItem={renderGroup}
         keyExtractor={(item) => item.id.toString()}
       />
+      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddGroup')}>
+        <MaterialCommunityIcons name="plus" size={24} color="white" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -171,5 +173,17 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 16,
     paddingVertical: 5,
+  },
+  addButton: {
+    backgroundColor: '#3DDC97',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    elevation: 10,
   },
 });

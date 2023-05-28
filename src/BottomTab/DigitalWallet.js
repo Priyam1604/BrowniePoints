@@ -9,28 +9,28 @@ const goalsData = [
     group: "A",
     dateAssigned: "2023-01-01",
     browniePoints: 500,
-    status: "Not assigned",
+    status: "Active",
   },
   {
     name: "Pencil Case",
     group: "B",
     dateAssigned: "2023-01-15",
     browniePoints: 200,
-    status: "Pending",
+    status: "Redeemed",
   },
   {
     name: "Football",
     group: "C",
     dateAssigned: "2023-02-05",
     browniePoints: 300,
-    status: "Approved",
+    status: "Redeemed",
   },
   {
     name: "Nike Shoes",
     group: "D",
     dateAssigned: "2023-02-20",
     browniePoints: 800,
-    status: "Approved",
+    status: "Active",
   },
 ];
 
